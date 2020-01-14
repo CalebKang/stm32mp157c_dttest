@@ -25,6 +25,13 @@
 	compatible = "st,stm32mp157c-dttest-mx", "st,stm32mp157";
 
 	/* USER CODE BEGIN root */
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	aliases {
+		serial1 = &usart3;
+	};	
 	/* USER CODE END root */
 
 	clocks {
