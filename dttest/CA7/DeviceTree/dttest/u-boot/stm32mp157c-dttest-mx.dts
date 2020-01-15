@@ -83,15 +83,15 @@
 		u-boot,dm-pre-reloc;
 		pins1 {
 			u-boot,dm-pre-reloc;
-			pinmux = <STM32_PINMUX('D', 1, AF8)>; /* UART4_TX */
+			pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
 			bias-disable;
-			drive-push-pull;
-			slew-rate = <0>;
 		};
 		pins2 {
 			u-boot,dm-pre-reloc;
-			pinmux = <STM32_PINMUX('H', 14, AF8)>; /* UART4_RX */
+			pinmux = <STM32_PINMUX('G', 11, AF6)>; /* UART4_TX */
 			bias-disable;
+			drive-push-pull;
+			slew-rate = <0>;
 		};
 	};
 
@@ -99,8 +99,8 @@
 		u-boot,dm-pre-reloc;
 		pins {
 			u-boot,dm-pre-reloc;
-			pinmux = <STM32_PINMUX('D', 1, ANALOG)>, /* UART4_TX */
-					 <STM32_PINMUX('H', 14, ANALOG)>; /* UART4_RX */
+			pinmux = <STM32_PINMUX('B', 2, ANALOG)>, /* UART4_RX */
+					 <STM32_PINMUX('G', 11, ANALOG)>; /* UART4_TX */
 		};
 	};
 
@@ -147,6 +147,14 @@
 
 	/* USER CODE BEGIN hsem */
 	/* USER CODE END hsem */
+};
+
+&rcc{
+	u-boot,dm-pre-reloc;
+	status = "okay";
+
+	/* USER CODE BEGIN rcc */
+	/* USER CODE END rcc */
 };
 
 &rtc{

@@ -111,26 +111,28 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI
+                              |RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS_DIG;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.HSIDivValue = RCC_HSI_DIV1;
   RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLL12SOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 25;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLL12SOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 2;
+  RCC_OscInitStruct.PLL.PLLN = 33;
   RCC_OscInitStruct.PLL.PLLP = 1;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
-  RCC_OscInitStruct.PLL.PLLFRACV = 0;
-  RCC_OscInitStruct.PLL.PLLMODE = RCC_PLL_INTEGER;
+  RCC_OscInitStruct.PLL.PLLFRACV = 2731;
+  RCC_OscInitStruct.PLL.PLLMODE = RCC_PLL_FRACTIONAL;
   RCC_OscInitStruct.PLL2.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.PLL3.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.PLL4.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL4.PLLSource = RCC_PLL4SOURCE_HSI;
-  RCC_OscInitStruct.PLL4.PLLM = 4;
-  RCC_OscInitStruct.PLL4.PLLN = 30;
+  RCC_OscInitStruct.PLL4.PLLSource = RCC_PLL4SOURCE_HSE;
+  RCC_OscInitStruct.PLL4.PLLM = 2;
+  RCC_OscInitStruct.PLL4.PLLN = 40;
   RCC_OscInitStruct.PLL4.PLLP = 2;
   RCC_OscInitStruct.PLL4.PLLQ = 2;
   RCC_OscInitStruct.PLL4.PLLR = 25;
@@ -163,6 +165,9 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  /** Set the HSE division factor for RTC clock 
+  */
+  __HAL_RCC_RTC_HSEDIV(1);
 }
 
 /* USER CODE BEGIN 4 */

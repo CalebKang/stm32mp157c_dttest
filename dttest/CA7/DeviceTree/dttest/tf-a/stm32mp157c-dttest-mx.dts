@@ -30,8 +30,8 @@
 	};
 
 	aliases {
-		serial1 = &usart3;
-	};	
+		serial0 = &uart4;
+	};
 	/* USER CODE END root */
 
 	clocks {
@@ -45,6 +45,7 @@
 		};
 
 		clk_hse: clk-hse {
+			st,digbypass;
 
 			/* USER CODE BEGIN clk_hse */
 			/* USER CODE END clk_hse */
@@ -56,14 +57,14 @@
 &pinctrl {
 	uart4_pins_mx: uart4_mx-0 {
 		pins1 {
-			pinmux = <STM32_PINMUX('D', 1, AF8)>; /* UART4_TX */
+			pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
+			bias-disable;
+		};
+		pins2 {
+			pinmux = <STM32_PINMUX('G', 11, AF6)>; /* UART4_TX */
 			bias-disable;
 			drive-push-pull;
 			slew-rate = <0>;
-		};
-		pins2 {
-			pinmux = <STM32_PINMUX('H', 14, AF8)>; /* UART4_RX */
-			bias-disable;
 		};
 	};
 
@@ -90,9 +91,9 @@
 		CLK_MPU_PLL1P
 		CLK_AXI_HSI
 		CLK_MCU_HSI
-		CLK_PLL12_HSI
-		CLK_PLL3_HSI
-		CLK_PLL4_HSI
+		CLK_PLL12_HSE
+		CLK_PLL3_HSE
+		CLK_PLL4_HSE
 		CLK_RTC_LSI
 		CLK_MCO1_DISABLED
 		CLK_MCO2_DISABLED
@@ -142,10 +143,11 @@
 		CLK_LPTIM45_DISABLED
 	>;
 	pll1:st,pll@0 {
-		cfg = < 3 24 0 1 1 PQR(1,0,0) >;
+		cfg = < 1 32 0 1 1 PQR(1,0,0) >;
+		frac = < 0xaab>;
 	};
 	pll4:st,pll@3 {
-		cfg = < 3 29 1 1 24 PQR(0,0,1) >;
+		cfg = < 1 39 1 1 24 PQR(0,0,1) >;
 	};
 };
 
@@ -155,6 +157,14 @@
 
 	/* USER CODE BEGIN bsec */
 	/* USER CODE END bsec */
+};
+
+&rcc{
+	status = "okay";
+	secure-status = "okay";
+
+	/* USER CODE BEGIN rcc */
+	/* USER CODE END rcc */
 };
 
 &rtc{
